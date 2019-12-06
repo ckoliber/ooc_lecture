@@ -214,6 +214,4 @@ Rectangle* rectangle_new() {
 }
 ```
 
-#### Virtual Table
-
 ---
