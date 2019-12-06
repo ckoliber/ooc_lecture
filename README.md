@@ -169,4 +169,51 @@ Rectangle* rectangle_new() {
 
 ## Polymorphism (override)
 
+```c
+typedef struct Shape Shape;
+struct Shape {
+    int x;
+    int y;
+
+    void (*draw)(Shape* this);
+};
+
+typedef struct Rectangle Rectangle;
+struct Rectangle {
+    Shape super;
+
+    int width;
+    int height;
+}
+
+Rectangle* rectangle_new();
+void rectangle_free(Rectangle* rectangle);
+```
+
+**rectangle.c**
+
+```c
+Rectangle* rectangle_new() {
+    Rectangle* rectangle = malloc(sizeof(Rectangle));
+
+    // Constructor body
+
+    // Init super
+    Shape* shape = (Shape*) rectangle;
+    shape->x = 0;
+    shape->y = 0;
+    shape->draw = oldDraw;
+
+    // Init this
+    rectangle->width = 10;
+    rectangle->height = 20;
+    // Overriding method
+    shape->draw = newDraw;
+
+    return rectangle;
+}
+```
+
+#### Virtual Table
+
 ---
